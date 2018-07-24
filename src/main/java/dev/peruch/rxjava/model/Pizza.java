@@ -1,4 +1,4 @@
-package dev.peruch.rxjava.entity;
+package dev.peruch.rxjava.model;
 
 public class Pizza {
 
