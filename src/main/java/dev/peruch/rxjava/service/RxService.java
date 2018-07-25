@@ -16,13 +16,13 @@ public class RxService {
         pizzaObservable = Observable.just(new Order(new Pizza(size, flavor, hasStuffedEdge)));
         pizzaObservable.subscribe(o -> System.out.println(o.toString()));
         pizzaObservable.subscribe(o -> o = buscandoIngredientes(o));
-        pizzaObservable.subscribe(o -> preparandoPizza(o));
-        pizzaObservable.subscribe(o -> entregaDaPizza(o));
+        pizzaObservable.subscribe(o -> o = preparandoPizza(o));
+        pizzaObservable.subscribe(o -> o = entregaDaPizza(o));
     }
 
     public String getOrderStatus() {
         final String[] output = new String[1];
-        pizzaObservable.subscribe(o -> output[0] = o.toString());
+        pizzaObservable.subscribe(o -> output[0] = o.getStatus());
         return output[0];
     }
 
