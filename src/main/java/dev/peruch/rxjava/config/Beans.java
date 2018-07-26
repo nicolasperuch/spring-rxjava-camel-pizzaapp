@@ -1,5 +1,6 @@
 package dev.peruch.rxjava.config;
 
+import dev.peruch.rxjava.model.Orders;
 import dev.peruch.rxjava.service.RxService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,4 +13,8 @@ public class Beans {
         return new RxService();
     }
 
+    @Bean
+    public Orders orders() {
+        return new Orders();
+    }
 }

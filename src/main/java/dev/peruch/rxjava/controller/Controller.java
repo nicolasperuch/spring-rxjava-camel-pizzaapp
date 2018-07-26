@@ -17,16 +17,18 @@ public class Controller {
         return "Faca seu pedido atraves da url /order";
     }
 
-    @RequestMapping("/order/{size}/{flavor}/{hasStuffedEdge}")
-    public String createOrder(@PathVariable String size,
+    @RequestMapping("/order/{customerName}/{size}/{flavor}/{hasStuffedEdge}")
+    public String createOrder(@PathVariable String customerName,
+                              @PathVariable String size,
                               @PathVariable String flavor,
-                              @PathVariable boolean hasStuffedEdge) {
-        service.createOrder(size, flavor, hasStuffedEdge);
-        return "OK";
+                              @PathVariable boolean hasStuffedEdge) throws InterruptedException {
+        service.createOrder(customerName, size, flavor, hasStuffedEdge);
+        return "Check /status/" + customerName + flavor;
     }
 
-    @RequestMapping("/status")
-    public String getOrderStatus() {
-        return service.getOrderStatus();
+    @RequestMapping("/status/{orderId}")
+    public String getOrderStatus(@PathVariable String orderId){
+        return service.getOrderStatus(orderId);
     }
+
 }
