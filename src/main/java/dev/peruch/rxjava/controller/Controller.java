@@ -1,10 +1,10 @@
 package dev.peruch.rxjava.controller;
 
+import dev.peruch.rxjava.model.Order;
 import dev.peruch.rxjava.service.RxService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class Controller {
@@ -30,5 +30,4 @@ public class Controller {
     public String getOrderStatus(@PathVariable String orderId){
         return service.getOrderStatus(orderId);
     }
-
 }

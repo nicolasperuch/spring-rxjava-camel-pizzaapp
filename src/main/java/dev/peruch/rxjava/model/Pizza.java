@@ -1,18 +1,22 @@
 package dev.peruch.rxjava.model;
 
+import dev.peruch.rxjava.business.PizzaBusiness;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Pizza {
 
-    private String flavor;
+    @Autowired
+    PizzaBusiness pizzaBusiness;
     private String size;
+    private String flavor;
     private boolean hasStuffedEdge;
     private double value;
 
     public Pizza(String size, String flavor, boolean hasStuffedEdge) {
-
         this.size = size;
         this.flavor = flavor;
         this.hasStuffedEdge = hasStuffedEdge;
-        this.value = calculateTotalValue();
+        this.value = pizzaBusiness.calculateTotalValue(size, hasStuffedEdge);
     }
 
     public String getFlavor() {
@@ -45,20 +49,6 @@ public class Pizza {
 
     public void setValue(double value) {
         this.value = value;
-    }
-
-    private double calculateTotalValue(){
-        double currentValue = 25;
-
-        if(hasStuffedEdge){
-            currentValue += 5;
-        }
-
-        if(size.equalsIgnoreCase("G")){
-            currentValue += 5;
-        }
-
-        return currentValue;
     }
 
     @Override

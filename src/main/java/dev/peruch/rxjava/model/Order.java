@@ -1,7 +1,12 @@
 package dev.peruch.rxjava.model;
 
+import dev.peruch.rxjava.business.OrderBusiness;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Order {
 
+    @Autowired
+    OrderBusiness orderBusiness;
     private String orderId;
     private Pizza pizza;
     private double deliveryPrice;
@@ -11,8 +16,8 @@ public class Order {
 
     public Order(Pizza pizza, String customerName) {
         this.pizza = pizza;
-        this.deliveryPrice = calculateDeliveryPrice();
-        this.orderValue = calculateOrderValue();
+        this.deliveryPrice = orderBusiness.calculateDeliveryPrice(this.pizza);
+        this.orderValue = orderBusiness.calculateOrderValue(this.pizza, deliveryPrice);
         this.status = "";
         this.customerName = customerName;
     }
@@ -25,14 +30,6 @@ public class Order {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
-    }
-
-    public double calculateDeliveryPrice() {
-        return this.pizza.getValue() * 0.1;
-    }
-
-    public double calculateOrderValue() {
-        return this.pizza.getValue() + this.deliveryPrice;
     }
 
     public Pizza getPizza() {
@@ -79,7 +76,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId='" + orderId + '\'' +
-                ", pizza=" + pizza +
+                ", pizza=" + pizza.toString() +
                 ", deliveryPrice=" + deliveryPrice +
                 ", orderValue=" + orderValue +
                 ", status='" + status + '\'' +
