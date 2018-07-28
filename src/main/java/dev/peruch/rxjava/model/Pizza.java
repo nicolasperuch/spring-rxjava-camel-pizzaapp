@@ -1,12 +1,9 @@
 package dev.peruch.rxjava.model;
 
-import dev.peruch.rxjava.business.PizzaBusiness;
-import org.springframework.beans.factory.annotation.Autowired;
+import static dev.peruch.rxjava.business.BusinessRules.calculateTotalValue;
 
 public class Pizza {
 
-    @Autowired
-    PizzaBusiness pizzaBusiness;
     private String size;
     private String flavor;
     private boolean hasStuffedEdge;
@@ -16,7 +13,7 @@ public class Pizza {
         this.size = size;
         this.flavor = flavor;
         this.hasStuffedEdge = hasStuffedEdge;
-        this.value = pizzaBusiness.calculateTotalValue(size, hasStuffedEdge);
+        this.value = calculateTotalValue(size, hasStuffedEdge);
     }
 
     public String getFlavor() {

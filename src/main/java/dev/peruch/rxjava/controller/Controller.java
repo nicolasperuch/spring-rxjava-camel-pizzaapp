@@ -1,12 +1,14 @@
 package dev.peruch.rxjava.controller;
 
-import dev.peruch.rxjava.model.Order;
 import dev.peruch.rxjava.service.RxService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 public class Controller {
 
     @Autowired
