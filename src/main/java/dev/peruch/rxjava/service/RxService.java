@@ -1,6 +1,7 @@
 package dev.peruch.rxjava.service;
 
 import dev.peruch.rxjava.model.Order;
+import dev.peruch.rxjava.model.OrderRequest;
 import dev.peruch.rxjava.model.Orders;
 import dev.peruch.rxjava.model.Pizza;
 import io.reactivex.Observable;
@@ -26,6 +27,14 @@ public class RxService {
                             .subscribeOn(Schedulers.computation())
                             .observeOn(Schedulers.computation())
                             .subscribe(this::workingOnOrder);
+    }
+
+    public void createOrder(OrderRequest input) {
+        disposableOrders = Observable
+                .just(postOrder(input))
+                .subscribeOn(Schedulers.computation())
+                .observeOn(Schedulers.computation())
+                .subscribe(this::workingOnOrder);
     }
 
     private Order createInternalOrder(String customerName, String size, String flavor, boolean hasStuffedEdge){
@@ -63,5 +72,18 @@ public class RxService {
                                     .collect(Collectors.toList());
 
         return specificOrder.get(0).getStatus();
+    }
+
+    public Order postOrder(OrderRequest input) {
+        Order order = new Order();
+        Pizza pizza = new Pizza(input.getSize(), input.getFlavor(), input.isHasStuffedEdge());
+
+        order.setOrderId(input.getCustomerName()+input.getFlavor());
+        order.setCustomerName(input.getCustomerName());
+        order.setPizza(pizza);
+
+        orders.getOrders().add(order);
+
+        return order;
     }
 }

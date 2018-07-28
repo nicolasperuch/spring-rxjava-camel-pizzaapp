@@ -1,14 +1,12 @@
 package dev.peruch.rxjava.controller;
 
+import dev.peruch.rxjava.model.OrderRequest;
 import dev.peruch.rxjava.service.RxService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin()
 public class Controller {
 
     @Autowired
@@ -31,5 +29,11 @@ public class Controller {
     @RequestMapping("/status/{orderId}")
     public String getOrderStatus(@PathVariable String orderId){
         return service.getOrderStatus(orderId);
+    }
+
+    @PostMapping("/order")
+    public String postOrder(@RequestBody OrderRequest input){
+        service.createOrder(input);
+        return "Check /status/" + input.getCustomerName() + input.getFlavor();
     }
 }
